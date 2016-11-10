@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Words</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Test Case?</th>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Length</th>
+      <th>Raw Names</th>
+      <th>Word length id</th>
+      <th>Word length</th>
+      <th>Histogram id</th>
+      <th>Histogram</th>
+      <th>Traversed Ids</th>
+      <th>Word Friends</th>
+      <th>Soc Net Size</th>
+      <th>Soc Net Word Names</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @words.each do |word| %>
+      <tr>
+        <td><%= word.is_test_case.to_s.split('').first == 't' ? 'true' : 'false' %></td>
+        <td><%= word.id %></td>
+        <td><%= word.name %></td>
+        <td><%= word.length %></td>
+        <td><%= word.raw_words.pluck(:name) if word.raw_words %></td>
+        <td><%= word.word_length[:id] if word.word_length %></td>
+        <td><%= word.word_length[:length] if word.word_length %></td>
+        <td><%= word.histogram[:id] if word.histogram %></td>
+        <td><%= word.histogram[:hist] if word.histogram %></td>
+        <td><%= word.traversed_ids %></td>
+        <td><%= word.word_friends_word_names %></td> <!--word_to_friends-->
+        <td><%= word.soc_net_size %></td>
+        <td><%= word.in_soc_net_names %></td>
+        <td><%= link_to 'Show', word %></td>
+        <td><%= link_to 'Edit', edit_word_path(word) %></td>
+        <td><%= link_to 'Destroy', word, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Word', new_word_path %>
